@@ -5,6 +5,7 @@ import { MDXProvider } from '@mdx-js/react'
 import { Layout } from '@/components/Layout'
 import * as mdxComponents from '@/components/mdx'
 import { useMobileNavigationStore } from '@/components/MobileNavigation'
+import { HeroPattern } from '@/components/HeroPattern'
 
 import '@/styles/tailwind.css'
 import 'focus-visible'
@@ -31,6 +32,7 @@ export default function App({ Component, pageProps }) {
       </Head>
       <MDXProvider components={mdxComponents}>
         <Layout {...pageProps}>
+          <HeroPattern />
           <Component {...pageProps} />
         </Layout>
       </MDXProvider>

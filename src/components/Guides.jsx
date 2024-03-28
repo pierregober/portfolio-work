@@ -3,9 +3,9 @@ import { Heading } from '@/components/Heading'
 
 const guides = [
   {
-    href: '/authentication',
-    name: 'Authentication',
-    description: 'Learn how to authenticate your API requests.',
+    href: '/programmatically-process-urls-for-SEO-inspection-and-indexing',
+    name: 'Programmatically Inspect & Index URLs',
+    description: 'Learn how to leverage AppsScript to index our pages.',
   },
   {
     href: '/pagination',

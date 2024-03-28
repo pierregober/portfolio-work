@@ -78,7 +78,7 @@ function ResourcePattern({ mouseX, mouseY, ...gridProps }) {
 
   return (
     <div className="pointer-events-none">
-      <div className="absolute inset-0 rounded-2xl transition duration-300 [mask-image:linear-gradient(white,transparent)] group-hover:opacity-50">
+      {/* <div className="absolute inset-0 rounded-2xl transition duration-300 [mask-image:linear-gradient(white,transparent)] group-hover:opacity-50">
         <GridPattern
           width={72}
           height={56}
@@ -86,7 +86,7 @@ function ResourcePattern({ mouseX, mouseY, ...gridProps }) {
           className="absolute inset-x-0 inset-y-[-30%] h-[160%] w-full skew-y-[-18deg] fill-black/[0.02] stroke-black/5 dark:fill-white/1 dark:stroke-white/2.5"
           {...gridProps}
         />
-      </div>
+      </div> */}
       <motion.div
         className="absolute inset-0 rounded-2xl bg-gradient-to-r from-[#6d28d9] to-[#FFF8E8] opacity-0 transition duration-300 group-hover:opacity-100 dark:from-[#6d28d9] dark:to-[#303428]"
         style={style}

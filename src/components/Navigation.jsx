@@ -190,7 +190,10 @@ export const navigation = [
       { title: 'Introduction', href: '/' },
       { title: 'Quickstart', href: '/quickstart' },
       { title: 'SDKs', href: '/sdks' },
-      { title: 'Authentication', href: '/authentication' },
+      {
+        title: 'Inspect & Index URLs',
+        href: '/programmatically-process-urls-for-SEO-inspection-and-indexing',
+      },
       { title: 'Pagination', href: '/pagination' },
       { title: 'Errors', href: '/errors' },
       { title: 'Webhooks', href: '/webhooks' },
