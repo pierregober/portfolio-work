@@ -19,14 +19,13 @@ Router.events.on('hashChangeStart', onRouteChange)
 
 export default function App({ Component, pageProps }) {
   let router = useRouter()
-
   return (
     <>
       <Head>
         {router.pathname === '/' ? (
-          <title>Protocol API Reference</title>
+          <title>{`Tech Blog`} Work</title>
         ) : (
-          <title>{`${pageProps.title} - Protocol API Reference`}</title>
+          <title>{`${pageProps.title} - Tech Blog`}</title>
         )}
         <meta name="description" content={pageProps.description} />
       </Head>

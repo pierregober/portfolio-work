@@ -5,7 +5,7 @@ import logoJS from '@/images/logos/js.svg'
 
 import { Libraries } from "@/components/Libraries"
 
-export const deps = [
+export const libraries = [
   {
     name: 'Node.js',
     logo: logoNode,
@@ -23,16 +23,16 @@ export const description =
   'In this guide, we’ll look at how authentication works. Protocol offers two ways to authenticate your API requests: Basic authentication and OAuth2 with a token.'
 
 # Programmatically process urls for SEO inspection and indexing
-<Libraries libraries={deps}/>
+<Libraries libraries={libraries} />
 
 ## Situation
-Prior to my joining the team, a significant indexing oversight occurred wherein an engineer inadvertently applied a 'noindex' meta tag to millions of the company's web pages. The error, which went undetected for weeks, led to a scramble to reverse the situation. Despite prompt measures to correct the meta tags and the introduction of new sitemaps, the repercussions were substantial and enduring. Numerous pages continued to be erroneously listed as 'noindexed' in Google Search Console, muddling the true status of the site's indexing. Compounding the challenge, certain pages which had the 'noindex' tag removed were still misreported due to the lag in Google Search Console's data refresh. This discrepancy underscored the absence of a reliable system to track and verify the current indexing status in real-time.For instance today is 3/28/24 but as you can see in the picture the is three days old.
+Prior to joining the team, a significant indexing oversight occurred wherein an engineer inadvertently applied a 'noindex' meta tag to millions of the company's web pages. The error, which went undetected for weeks, led to a scramble to reverse the situation. Despite prompt measures to correct the meta tags and the introduction of new sitemaps, the repercussions were substantial and enduring. Numerous pages continued to be erroneously listed as 'noindexed' in Google Search Console, muddling the true status of the site's indexing. Compounding the challenge, certain pages which had the 'noindex' tag removed were still misreported due to the lag in Google Search Console's data refresh. This discrepancy underscored the absence of a reliable system to track and verify the current indexing status in real-time.For instance today is 3/28/24 but as you can see in the picture the is three days old.
 
 ## Task
 My goal is to procure the latest data on the 10,000 most frequented pages within our domain and inspect them to see if these pages have undergone an inspection in the past week. With that list we should also be able to see what hasn’t been indexed. The outcome should be neatly organized into a reader-friendly spreadsheet, ensuring that all pertinent information is clearly presented and easily accessible.
 
 ## Action
-The initial step involved setting up a spreadsheet, structured with designated columns to systematically record and organize pertinent data. Subsequently, I developed a script designed to sequentially process a prioritized list of URLs, functioning as a targeted indexer. This script was programmed to identify if a URL had already been indexed and, if so, to move on to the next URL in the queue. Furthermore, it incorporated a mechanism to bypass any URLs that had been inspected within the last 7 days, optimizing the efficiency of the indexing process. 
+The initial step involved setting up a spreadsheet, structured with designated columns to systematically record and organize pertinent data. Subsequently, I developed a script designed to sequentially process a prioritized list of URLs, functioning as a targeted indexer. This script was programmed to identify if a URL had already been indexed and, if so, to move on to the next URL in the queue. Furthermore, it incorporated a mechanism to bypass any URLs that had been inspected within the last 7 days, optimizing the efficiency of the indexing process.
 
 ## Result
 
@@ -50,11 +50,15 @@ The initial step involved setting up a spreadsheet, structured with designated c
 </Properties>
 
 ### Spread sheet but it must be in the following format. A single line header is *required*.
-| Priority | Url            | Last Inspection Date | Last Inspection Result | Coverage State | Last Action | Last Indexing Result |
-|----------|----------------|----------------------|------------------------|----------------|-------------|----------------------|
-| High     | www.site0.com  |                      |                        |                |             |                      |
-| Medium   | www.site1.com  |                      |                        |                |             |                      |
-| Low      | www.site2.com  |                      |                        |                |             |                      |
+Priority
+Url
+Last Inspection
+Date
+Last Inspection Result
+Coverage State
+Last Action
+Last Indexing Result
+
 
 - Step 1a: You must have the spread sheet open with the specifc tab active on your browser.
 - Step 2: Go to the Script Properties and verify that you want to inspect and index that many urls
@@ -382,16 +386,3 @@ function formatDate(date) {
   return `${month}/${day}/${year} ${hours}:${mins}${ampm}`;
 }
 ```
-
-## Comments
-
-
-<div className="not-prose">
-  <Button
-    href="/sdks"
-    variant="text"
-    arrow="right"
-    children="Check out our list of first-party SDKs"
-  />
-</div>
-
