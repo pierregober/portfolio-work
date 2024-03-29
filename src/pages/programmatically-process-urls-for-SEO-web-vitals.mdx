@@ -1,0 +1,24 @@
+{/* Custom Components */}
+import { Libraries } from "@/components/Libraries"
+import logoAppsScript from '@/images/logos/appsScript.svg'
+import logoJS from '@/images/logos/js.svg'
+import logoNode from '@/images/logos/node.svg'
+
+{/* Variables */}
+export const libraries = [
+  {
+    name: 'Node.js',
+    logo: logoNode,
+  },
+  {
+    name: 'Apps Script',
+    logo: logoAppsScript,
+  },
+  {
+    name: 'JavaScript',
+    logo: logoJS
+  },
+];
+
+# Something
+<Libraries libraries={libraries} />

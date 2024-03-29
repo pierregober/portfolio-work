@@ -7,6 +7,11 @@ const guides = [
     name: 'Programmatically Inspect & Index URLs',
     description: 'Learn how to leverage AppsScript to index your pages.',
   },
+  {
+    href: '/programmatically-process-urls-for-SEO-web-vitals',
+    name: 'Fetch Web Vital Info',
+    description: 'Learn how to leverage PageSpeed API to gather Web Vitals',
+  },
 ]
 
 export function Guides() {

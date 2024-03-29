@@ -59,7 +59,7 @@ Last Action
 Last Indexing Result
 
 
-- Step 1a: You must have the spread sheet open with the specifc tab active on your browser.
+- Step 1: You must have the spread sheet open with the specifc tab active on your browser.
 - Step 2: Go to the Script Properties and verify that you want to inspect and index that many urls
 	- Descriptions of the [Script Properties](#code)
 - Step 3: Go to the Editor and click the `code.gs` file
@@ -101,7 +101,7 @@ function authenticateAndRun() {
   //Step 0: Retrieve the last good date from the Properties Service (env variables)
   //Step 1: Conditional - check if the laast good crawl date is truthy, if not set to today
   //Step 2: Get the the array of rows, which are also arrays [][]
-  //Step 3: Set the `maxUrlsToProcess` 
+  //Step 3: Set the `maxUrlsToProcess`
   //Step 4: Iterate over the urls
   //Step 4a: If the url in the iteration already has a recent crawl date (within the past 7 days + it is indexed) skip it move to next (continue)
   //Step 4b: If the url in the iteration needs to get indexed increment the counter and send for processing -- Note this also includes ones with errors

@@ -14,8 +14,6 @@ export function useGiscusScript() {
       return
     }
 
-    console.log(router.pathname)
-
     // Create script element, set its source, and other attributes
     const script = document.createElement('script')
     script.src = src
@@ -31,7 +29,10 @@ export function useGiscusScript() {
     script.setAttribute('data-repo-id', 'R_kgDOLm1k8g')
     script.setAttribute('data-repo', 'pierregober/portfolio-work')
     script.setAttribute('data-strict', '0')
-    script.setAttribute('data-term', router.pathname)
+    script.setAttribute(
+      'data-term',
+      router.pathname === '/' ? 'home' : router.pathname
+    )
     script.setAttribute('data-theme', 'preferred_color_scheme')
 
     // Append the script to the document body
