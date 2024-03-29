@@ -23,9 +23,9 @@ export default function App({ Component, pageProps }) {
     <>
       <Head>
         {router.pathname === '/' ? (
-          <title>{`Tech Blog`} Work</title>
+          <title>{`CleverlyDone Tech Blog`}</title>
         ) : (
-          <title>{`${pageProps.title} - Tech Blog`}</title>
+          <title>{`${pageProps.title} - CleverlyDone Tech Blog`}</title>
         )}
         <meta name="description" content={pageProps.description} />
       </Head>

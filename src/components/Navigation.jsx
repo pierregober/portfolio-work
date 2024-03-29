@@ -189,7 +189,11 @@ export const navigation = [
     links: [
       { title: 'Introduction', href: '/' },
       {
-        title: 'Inspect & Index URLs',
+        title: 'SEO Web Vitals Tool',
+        href: '/programmatically-process-urls-for-SEO-web-vitals',
+      },
+      {
+        title: 'SEO Inspection & Indexing Tool',
         href: '/programmatically-process-urls-for-SEO-inspection-and-indexing',
       },
     ],
@@ -207,11 +211,6 @@ export function Navigation(props) {
             className={groupIndex === 0 && 'md:mt-0'}
           />
         ))}
-        <li className="sticky bottom-0 z-10 mt-6 min-[416px]:hidden">
-          <Button href="#" variant="filled" className="w-full">
-            Sign in
-          </Button>
-        </li>
       </ul>
     </nav>
   )
