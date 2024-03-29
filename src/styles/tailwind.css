@@ -30,6 +30,11 @@
   background-color: rgba(165, 137, 250, 0.514);
 }
 
+#discussion {
+  color: transparent;
+  margin: 0;
+}
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;

@@ -24,7 +24,6 @@ export const libraries = [
 
 <Libraries libraries={libraries} />
 
-
 ## Situation
 After successfully navigating through a challenging period of declining organic search rankings, we started noticing an encouraging upward trend. This improvement inspired me to take a proactive step by developing a tool designed to pinpoint our performance rankings on a page-by-page basis. Initially conceptualized as a proof of concept, this tool's primary aim was to gather insightful data to underscore the necessity for a robust solution dedicated to tracking Web Vitals. The envisioned long-term solution involves integrating the Web Vitals library across all pages to capture authentic user interaction data. A particular focus was placed on a new metric, Interaction to Next Paint, which necessitates real user data for accurate tracking.
 
@@ -36,3 +35,355 @@ The preliminary step involved the creation of a meticulously organized spreadshe
 
 ## Result
 This initiative enabled us to pinpoint and subsequently rectify key performance bottlenecks across our webpages, significantly boosting their overall performance. As a direct result of these optimizations, we observed a notable improvement in our average ranking, climbing four positions to break into the top 10. This achievement not only underscores the efficacy of our strategic approach but also highlights our commitment to continual improvement and excellence in web performance.
+
+## Code
+```javascript {{ title: "code.gs" }}
+function getBatchChunkWebVitals() {
+  const sheet = SpreadsheetApp.getActiveSpreadsheet().getActiveSheet();
+  const range = sheet.getActiveRange();
+  const urls = range.getValues();
+  const startRow = range.getRow();
+
+  const chunkSize = 24;
+  const urlChunks = chunkUrls(urls, chunkSize);
+
+  urlChunks.forEach((urlChunk, chunkIndex) => {
+    const response = [
+      { type: "MOBILE", data: callPageSpeedApi(urlChunk, "MOBILE") },
+      { type: "DESKTOP", data: callPageSpeedApi(urlChunk, "DESKTOP") },
+    ];
+3
+    response.forEach((results, index) => {
+      if ("error" in results.data) {
+        console.log(results.data.error.message);
+        return;
+      }
+      const offset = index * 9;
+
+      results.data.forEach((result, i) => {
+        const parsedResult = JSON.parse(result.getContentText());
+
+        if (results[index] === 0)
+          sheet
+            .getRange(startRow + chunkSize * chunkIndex, 8)
+            .setValue(formatDate(new Date()));
+
+        if (!("error" in parsedResult)) {
+          sheet
+            .getRange(i + startRow + chunkSize * chunkIndex, 10 + offset)
+            .setValue(
+              parsedResult.lighthouseResult.categories.performance.score * 100
+            );
+
+          sheet
+            .getRange(i + startRow + chunkSize * chunkIndex, 9 + offset)
+            .setValue("SUCCESS"); //successfully fetched was verified
+
+          sheet
+            .getRange(i + startRow + chunkSize * chunkIndex, 11 + offset)
+            .setValue(parsedResult.loadingExperience.overall_category);
+          sheet
+            .getRange(i + startRow + chunkSize * chunkIndex, 11 + offset)
+            .setBackground(
+              setCategoryColor(parsedResult.loadingExperience.overall_category)
+            );
+
+          sheet
+            .getRange(i + startRow + chunkSize * chunkIndex, 12 + offset)
+            .setValue(
+              `${parsedResult.loadingExperience.metrics["INTERACTION_TO_NEXT_PAINT"].percentile} ms`
+            );
+          sheet
+            .getRange(i + startRow + chunkSize * chunkIndex, 12 + offset)
+            .setNote(
+              generateMetricRangeNote(
+                parsedResult.loadingExperience.metrics[
+                  "INTERACTION_TO_NEXT_PAINT"
+                ]
+              )
+            );
+          sheet
+            .getRange(i + startRow + chunkSize * chunkIndex, 12 + offset)
+            .setBackground(
+              setCategoryColor(
+                parsedResult.loadingExperience.metrics[
+                  "INTERACTION_TO_NEXT_PAINT"
+                ].category
+              )
+            );
+
+          sheet
+            .getRange(i + startRow + chunkSize * chunkIndex, 13 + offset)
+            .setValue(
+              parsedResult.lighthouseResult.audits["cumulative-layout-shift"]
+                .displayValue
+            );
+          sheet
+            .getRange(i + startRow + chunkSize * chunkIndex, 13 + offset)
+            .setNote(
+              generateMetricRangeNote(
+                parsedResult.loadingExperience.metrics[
+                  "CUMULATIVE_LAYOUT_SHIFT_SCORE"
+                ]
+              )
+            );
+          sheet
+            .getRange(i + startRow + chunkSize * chunkIndex, 13 + offset)
+            .setBackground(
+              setCategoryColor(
+                parsedResult.loadingExperience.metrics[
+                  "CUMULATIVE_LAYOUT_SHIFT_SCORE"
+                ].category
+              )
+            );
+
+          sheet
+            .getRange(i + startRow + chunkSize * chunkIndex, 14 + offset)
+            .setValue(
+              parsedResult.lighthouseResult.audits["largest-contentful-paint"]
+                .displayValue
+            );
+          sheet
+            .getRange(i + startRow + chunkSize * chunkIndex, 14 + offset)
+            .setNote(
+              generateMetricRangeNote(
+                parsedResult.loadingExperience.metrics[
+                  "LARGEST_CONTENTFUL_PAINT_MS"
+                ]
+              )
+            );
+          sheet
+            .getRange(i + startRow + chunkSize * chunkIndex, 14 + offset)
+            .setBackground(
+              setCategoryColor(
+                parsedResult.loadingExperience.metrics[
+                  "LARGEST_CONTENTFUL_PAINT_MS"
+                ].category
+              )
+            );
+
+          sheet
+            .getRange(i + startRow + chunkSize * chunkIndex, 15 + offset)
+            .setValue(
+              parsedResult.lighthouseResult.audits["first-contentful-paint"]
+                .displayValue
+            );
+          sheet
+            .getRange(i + startRow + chunkSize * chunkIndex, 15 + offset)
+            .setNote(
+              generateMetricRangeNote(
+                parsedResult.loadingExperience.metrics[
+                  "FIRST_CONTENTFUL_PAINT_MS"
+                ]
+              )
+            );
+          sheet
+            .getRange(i + startRow + chunkSize * chunkIndex, 15 + offset)
+            .setBackground(
+              setCategoryColor(
+                parsedResult.loadingExperience.metrics[
+                  "FIRST_CONTENTFUL_PAINT_MS"
+                ].category
+              )
+            );
+
+          sheet
+            .getRange(i + startRow + chunkSize * chunkIndex, 16 + offset)
+            .setValue(
+              parsedResult.lighthouseResult.audits["max-potential-fid"]
+                .displayValue
+            );
+          sheet
+            .getRange(i + startRow + chunkSize * chunkIndex, 16 + offset)
+            .setNote(
+              generateMetricRangeNote(
+                parsedResult.loadingExperience.metrics["FIRST_INPUT_DELAY_MS"]
+              )
+            );
+          sheet
+            .getRange(i + startRow + chunkSize * chunkIndex, 16 + offset)
+            .setBackground(
+              setCategoryColor(
+                parsedResult.loadingExperience.metrics["FIRST_INPUT_DELAY_MS"]
+                  .category
+              )
+            );
+
+          sheet
+            .getRange(i + startRow + chunkSize * chunkIndex, 17 + offset)
+            .setValue(
+              `${parsedResult.loadingExperience.metrics["EXPERIMENTAL_TIME_TO_FIRST_BYTE"].percentile} ms`
+            );
+          sheet
+            .getRange(i + startRow + chunkSize * chunkIndex, 17 + offset)
+            .setNote(
+              generateMetricRangeNote(
+                parsedResult.loadingExperience.metrics[
+                  "EXPERIMENTAL_TIME_TO_FIRST_BYTE"
+                ]
+              )
+            );
+          sheet
+            .getRange(i + startRow + chunkSize * chunkIndex, 17 + offset)
+            .setBackground(
+              setCategoryColor(
+                parsedResult.loadingExperience.metrics[
+                  "EXPERIMENTAL_TIME_TO_FIRST_BYTE"
+                ].category
+              )
+            );
+        } else {
+          //TODO: Determine if a 429, 500, or lighthouse error
+          if (parsedResult.error.code == 400) {
+            if (parsedResult.error.errors[0].domain === "lighthouse") {
+              sheet
+                .getRange(i + startRow + chunkSize * chunkIndex, 9 + offset)
+                .setValue("LH ERROR");
+            } else {
+              sheet
+                .getRange(i + startRow + chunkSize * chunkIndex, 9 + offset)
+                .setValue("REQUEST ERROR");
+            }
+          } else if (parsedResult.error.code == 500) {
+            sheet
+              .getRange(i + startRow + chunkSize * chunkIndex, 9 + offset)
+              .setValue("SERVER ERROR");
+          } else {
+            sheet
+              .getRange(i + startRow + chunkSize * chunkIndex, 9 + offset)
+              .setValue("ERROR");
+          }
+          console.log("Error: ", parsedResult.error.message);
+        }
+      });
+    });
+  });
+}
+
+/**
+ * Helper that generates the category color
+ * @param  {Object} category
+ */
+function setCategoryColor(category) {
+  let color = "#ffffff";
+  switch (category) {
+    case "SLOW":
+      color = "#ff4f42";
+      break;
+    case "AVERAGE":
+      color = "#ffa600";
+      break;
+    case "FAST":
+      color = "#08cf6b";
+      break;
+    default:
+      console.log(`No category for metric!`);
+  }
+  return color;
+}
+
+/**
+ * Helper that generates the ranges for a given metric
+ * @param  {Object} selector
+ * @return {String}
+ */
+function generateMetricRangeNote(selector) {
+  return selector.distributions
+    .map((distribution) => {
+      const range =
+        distribution.max !== undefined
+          ? `${distribution.min}-${distribution.max}`
+          : `${distribution.min}`;
+      return `${range}: ${(distribution.proportion * 100).toFixed(2)}%`;
+    })
+    .join("\n");
+}
+
+/**
+ * Helper that calls the PageSpeed API for a single url
+ * @param  {String} url
+ * @return {Object | String}
+ */
+function callPageSpeedApi(urls, strategy) {
+  // const currentDateTime = new Date();
+  const properties = PropertiesService.getScriptProperties();
+  const key = properties.getProperty("API_KEY");
+
+  let response;
+  const urlArray = urls.map((url) => {
+    return {
+      url: `https://www.googleapis.com/pagespeedonline/v5/runPagespeed?url=${url}&key=${key}`,
+      category: "performance",
+      method: "get",
+      muteHttpExceptions: true,
+      strategy,
+    };
+  });
+  response = UrlFetchApp.fetchAll(urlArray);
+
+  if (response.code)
+    // console.log(`${strategy} PageSpeed API processed: ${url}`);
+    console.log(`${strategy} PageSpeed API batch request processed: ${urls}`);
+
+  return response;
+}
+
+/**
+ * Helper that clears the values of INSIGHT_QUOTA_RESET_DATE_TIME
+ * @return {Boolean}
+ */
+function clearQuotas() {
+  let scriptProperties = PropertiesService.getScriptProperties();
+
+  ["INSIGHT_QUOTA_RESET_DATE_TIME"].forEach(function (propertyName) {
+    let propertyValue = scriptProperties.getProperty(propertyName);
+    if (propertyValue) {
+      console.log(`${propertyName} was: ${propertyValue}`);
+      scriptProperties.deleteProperty(propertyName);
+      console.log(propertyName + " has been removed.");
+    } else {
+      console.log(propertyName + " does not exist.");
+    }
+  });
+
+  return true;
+}
+
+/**
+ * Helper that formats a Date object to MM/DD/YYYY hh/mm
+ * @param  {Date} date
+ * @return {String}
+ */
+function formatDate(date) {
+  let day = date.getDate().toString();
+  let month = (date.getMonth() + 1).toString();
+  let year = date.getFullYear();
+
+  let hours = date.getHours();
+  let mins = date.getMinutes().toString();
+  let ampm = hours >= 12 ? "PM" : "AM";
+
+  hours = hours % 12;
+  hours = hours ? hours.toString() : "12";
+  mins = mins.length < 2 ? "0" + mins : mins;
+
+  day = day.length < 2 ? "0" + day : day;
+  month = month.length < 2 ? "0" + month : month;
+
+  return `${month}/${day}/${year} ${hours}:${mins}${ampm}`;
+}
+
+/**
+ * Helper that organize the urls into chunks to be easily disgested
+ * @param  {Array} urls
+ */
+function chunkUrls(urls, chunkSize) {
+  let chunks = [];
+  for (let i = 0; i < urls.length; i += chunkSize) {
+    chunks.push(urls.slice(i, i + chunkSize));
+  }
+  return chunks;
+}
+```
+
+## Discussion

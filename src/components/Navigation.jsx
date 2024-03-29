@@ -189,6 +189,10 @@ export const navigation = [
     links: [
       { title: 'Introduction', href: '/' },
       {
+        title: "You Don't Know Git!",
+        href: "/you-don't-know-git",
+      },
+      {
         title: 'SEO Web Vitals Tool',
         href: '/programmatically-process-urls-for-SEO-web-vitals',
       },

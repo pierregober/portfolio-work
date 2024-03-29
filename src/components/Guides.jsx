@@ -12,6 +12,12 @@ const guides = [
     name: 'Fetch Web Vital Info',
     description: 'Learn how to leverage PageSpeed API to gather Web Vitals',
   },
+  {
+    href: "/you-don't-know-git",
+    name: "You Don't Know Git!",
+    description:
+      'Going over some of the must knows of git and some tools to help',
+  },
 ]
 
 export function Guides() {
