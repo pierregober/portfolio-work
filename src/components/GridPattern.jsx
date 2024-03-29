@@ -23,10 +23,10 @@ export function GridPattern({ width, height, x, y, squares, ...props }) {
       </style>
       <defs>
         <pattern
-          id={patternId}
-          width={width}
           height={height}
+          id={patternId}
           patternUnits="userSpaceOnUse"
+          width={width}
           x={x}
           y={y}
         >
@@ -38,20 +38,20 @@ export function GridPattern({ width, height, x, y, squares, ...props }) {
         <svg x={x} y={y} className="overflow-visible">
           {squares.map(([squareX, squareY], index) => (
             <rect
-              strokeWidth="0"
-              key={`${squareX}-${squareY}`}
-              width={width}
               height={height}
-              x={squareX * width}
-              y={squareY * height}
+              key={`${squareX}-${squareY}-${index}`}
+              strokeWidth="0"
               style={{
-                animationName: `${animationName}`,
+                animationDelay: `${index * 0.1}s`, // Staggered effect
+                animationDirection: 'alternate',
                 animationDuration: `${animationDuration}`,
                 animationIterationCount: 'infinite',
-                animationDirection: 'alternate',
+                animationName: `${animationName}`,
                 animationTimingFunction: 'ease-in-out',
-                animationDelay: `${index * 0.1}s`, // Staggered effect
               }}
+              width={width}
+              x={squareX * width}
+              y={squareY * height}
             />
           ))}
         </svg>

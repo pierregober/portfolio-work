@@ -15,8 +15,7 @@ const guides = [
   {
     href: "/you-don't-know-git",
     name: "You Don't Know Git!",
-    description:
-      'Going over some of the must knows of git and some tools to help',
+    description: 'Going over some of the must knows of git version control',
   },
 ]
 
