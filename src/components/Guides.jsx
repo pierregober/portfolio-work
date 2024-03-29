@@ -5,7 +5,7 @@ const guides = [
   {
     href: '/programmatically-process-urls-for-SEO-inspection-and-indexing',
     name: 'Programmatically Inspect & Index URLs',
-    description: 'Learn how to leverage AppsScript to index your pages.',
+    description: 'Learn how to index your highest priority urls first',
   },
   {
     href: '/programmatically-process-urls-for-SEO-web-vitals',

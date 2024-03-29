@@ -1,4 +1,4 @@
-import { useGiscusScript } from "./useGiscusScript"
+import { useGiscusScript } from "./hooks/useGiscusScript"
 
 export function GiscusComments() {
   useGiscusScript();

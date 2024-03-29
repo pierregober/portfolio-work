@@ -28,6 +28,7 @@ export function useGiscusScript() {
     script.setAttribute('data-reactions-enabled', '1')
     script.setAttribute('data-repo-id', 'R_kgDOLm1k8g')
     script.setAttribute('data-repo', 'pierregober/portfolio-work')
+
     script.setAttribute('data-strict', '0')
     script.setAttribute(
       'data-term',

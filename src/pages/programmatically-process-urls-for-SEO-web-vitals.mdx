@@ -20,5 +20,19 @@ export const libraries = [
   },
 ];
 
-# Something
+# Programmatically Process URLs For SEO Web Vitals
+
 <Libraries libraries={libraries} />
+
+
+## Situation
+After successfully navigating through a challenging period of declining organic search rankings, we started noticing an encouraging upward trend. This improvement inspired me to take a proactive step by developing a tool designed to pinpoint our performance rankings on a page-by-page basis. Initially conceptualized as a proof of concept, this tool's primary aim was to gather insightful data to underscore the necessity for a robust solution dedicated to tracking Web Vitals. The envisioned long-term solution involves integrating the Web Vitals library across all pages to capture authentic user interaction data. A particular focus was placed on a new metric, Interaction to Next Paint, which necessitates real user data for accurate tracking.
+
+## Task
+My objective was to gather the latest data on the top 15,000 pages frequented within our domain, employing the PageSpeed API to evaluate their performance scores over the previous week. This endeavor aimed not only to quantify our performance inefficiencies but also to encapsulate the findings in a well-structured, reader-friendly spreadsheet. This format ensures that all crucial information is not only well-presented but also readily accessible for analysis.
+
+## Action
+The preliminary step involved the creation of a meticulously organized spreadsheet, tailored with specific columns to efficiently catalog relevant data. I then crafted a script capable of processing URLs in batches, acknowledging the limitation of handling approximately 110 URLs before encountering operational delays. This script was designed with the intelligence to skip over previously analyzed URLs to expedite the evaluation process. Moreover, it featured a filter to exclude any URLs examined within the past week, thereby enhancing the query process's efficiency. Given the PageSpeed API's generous allowance of 25,000 requests per day, I was confident in obtaining comprehensive results from our URLs before the impending weekly technical meeting with our stakeholders.
+
+## Result
+This initiative enabled us to pinpoint and subsequently rectify key performance bottlenecks across our webpages, significantly boosting their overall performance. As a direct result of these optimizations, we observed a notable improvement in our average ranking, climbing four positions to break into the top 10. This achievement not only underscores the efficacy of our strategic approach but also highlights our commitment to continual improvement and excellence in web performance.
