@@ -60,17 +60,24 @@ export const Header = forwardRef(function Header({ className }, ref) {
       <Search />
       <div className="flex items-center gap-5 lg:hidden">
         <MobileNavigation />
-        <Link href="/" aria-label="Home">
-          <div
+        <Link
+          className="prose dark:prose-invert"
+          href="/"
+          aria-label="Home"
+          style={{
+            display: 'flex',
+          }}
+        >
+          <h1 style={{ fontWeight: 800, margin: 'auto' }}>Cleverly</h1>
+          <h1
             style={{
-              display: 'flex',
-              fontSize: 20,
-              fontWeight: 700,
-              color: 'white',
+              color: '#a78bfa',
+              fontWeight: 800,
+              margin: 'auto',
             }}
           >
-            Cleverly <div style={{ color: '#a78bfa' }}>Done</div>
-          </div>
+            Done
+          </h1>
         </Link>
       </div>
       <div className="flex items-center gap-5">

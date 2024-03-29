@@ -18,17 +18,24 @@ export function Layout({ children, sections = [] }) {
         >
           <div className="contents lg:pointer-events-auto lg:block lg:w-72 lg:overflow-y-auto lg:border-r lg:border-zinc-900/10 lg:px-6 lg:pt-4 lg:pb-8 lg:dark:border-white/10 xl:w-80">
             <div className="hidden lg:flex">
-              <Link href="/" aria-label="Home">
-                <div
+              <Link
+                className="prose dark:prose-invert"
+                href="/"
+                aria-label="Home"
+                style={{
+                  display: 'flex',
+                }}
+              >
+                <h1 style={{ fontWeight: 800, margin: 'auto' }}>Cleverly</h1>
+                <h1
                   style={{
-                    display: 'flex',
-                    fontSize: 20,
-                    fontWeight: 700,
-                    color: 'white',
+                    color: '#a78bfa',
+                    margin: 'auto',
+                    fontWeight: 800,
                   }}
                 >
-                  Cleverly <div style={{ color: '#a78bfa' }}>Done</div>
-                </div>
+                  Done
+                </h1>
               </Link>
             </div>
             <Header />
