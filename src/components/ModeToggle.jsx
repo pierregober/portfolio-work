@@ -18,7 +18,7 @@ function MoonIcon(props) {
   )
 }
 
-export function ModeToggle() {
+export function ModeToggle({ setDarkMode }) {
   function disableTransitionsTemporarily() {
     document.documentElement.classList.add('[&_*]:!transition-none')
     window.setTimeout(() => {
@@ -34,8 +34,10 @@ export function ModeToggle() {
     let isDarkMode = document.documentElement.classList.toggle('dark')
 
     if (isDarkMode === isSystemDarkMode) {
+      setDarkMode(true)
       delete window.localStorage.isDarkMode
     } else {
+      setDarkMode(false)
       window.localStorage.isDarkMode = isDarkMode
     }
   }

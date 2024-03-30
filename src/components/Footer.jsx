@@ -5,15 +5,6 @@ import { GiscusComments } from '@/components/GiscusComments'
 import { Button } from '@/components/Button'
 import { navigation } from '@/components/Navigation'
 
-function FeedbackForm() {
-  return (
-    <>
-      <div id="giscusContainer" style={{ maxWidth: 800 }}></div>
-      <GiscusComments />
-    </>
-  )
-}
-
 function PageLink({ label, page, previous = false }) {
   return (
     <>
@@ -132,10 +123,11 @@ function SmallPrint() {
   )
 }
 
-export function Footer() {
+export function Footer({ darkMode }) {
   return (
     <footer className="mx-auto max-w-2xl space-y-10 pb-16 lg:max-w-5xl">
-      <FeedbackForm />
+      <div id="giscusContainer" style={{ maxWidth: 800 }}></div>
+      <GiscusComments darkMode={darkMode} />
       <PageNavigation />
       <SmallPrint />
     </footer>

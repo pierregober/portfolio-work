@@ -1,14 +1,14 @@
+// Vendors
 import Link from 'next/link'
 import { motion } from 'framer-motion'
 
 import { Footer } from '@/components/Footer'
 import { Header } from '@/components/Header'
-import { Logo } from '@/components/Logo'
 import { Navigation } from '@/components/Navigation'
 import { Prose } from '@/components/Prose'
 import { SectionProvider } from '@/components/SectionProvider'
 
-export function Layout({ children, sections = [] }) {
+export function Layout({ children, darkMode, sections = [], setDarkMode }) {
   return (
     <SectionProvider sections={sections}>
       <div className="lg:ml-72 xl:ml-80">
@@ -38,7 +38,7 @@ export function Layout({ children, sections = [] }) {
                 </h1>
               </Link>
             </div>
-            <Header />
+            <Header setDarkMode={setDarkMode} />
             <Navigation className="hidden lg:mt-10 lg:block" />
           </div>
         </motion.header>
@@ -46,7 +46,7 @@ export function Layout({ children, sections = [] }) {
           <main className="py-16">
             <Prose as="article">{children}</Prose>
           </main>
-          <Footer />
+          <Footer darkMode={darkMode} />
         </div>
       </div>
     </SectionProvider>

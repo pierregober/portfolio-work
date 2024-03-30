@@ -1,8 +1,10 @@
+// Vendors
 import { forwardRef } from 'react'
 import Link from 'next/link'
 import clsx from 'clsx'
 import { motion, useScroll, useTransform } from 'framer-motion'
 
+// Custom Components
 import {
   MobileNavigation,
   useIsInsideMobileNavigation,
@@ -11,20 +13,10 @@ import { useMobileNavigationStore } from '@/components/MobileNavigation'
 import { ModeToggle } from '@/components/ModeToggle'
 import { MobileSearch, Search } from '@/components/Search'
 
-function TopLevelNavItem({ href, children }) {
-  return (
-    <li>
-      <Link
-        href={href}
-        className="text-sm leading-5 text-zinc-600 transition hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-white"
-      >
-        {children}
-      </Link>
-    </li>
-  )
-}
-
-export const Header = forwardRef(function Header({ className }, ref) {
+export const Header = forwardRef(function Header(
+  { className, setDarkMode },
+  ref
+) {
   let { isOpen: mobileNavIsOpen } = useMobileNavigationStore()
   let isInsideMobileNavigation = useIsInsideMobileNavigation()
 
@@ -83,7 +75,7 @@ export const Header = forwardRef(function Header({ className }, ref) {
         <div className="hidden md:block md:h-5 md:w-px md:bg-zinc-900/10 md:dark:bg-white/15" />
         <div className="flex gap-4">
           <MobileSearch />
-          <ModeToggle />
+          <ModeToggle setDarkMode={setDarkMode} />
         </div>
       </div>
     </motion.div>

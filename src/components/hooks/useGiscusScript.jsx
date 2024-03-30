@@ -1,14 +1,13 @@
 import { useEffect } from 'react'
 import { useRouter } from 'next/router'
 
-export function useGiscusScript() {
+export function useGiscusScript({ darkMode }) {
   const router = useRouter()
+
   useEffect(() => {
     const src = 'https://giscus.app/client.js'
 
     const container = document.getElementById('giscusContainer')
-
-    const isDark = document.documentElement.classList.contains('dark')
 
     // Check if the script is already in the document
     const scriptAlreadyLoaded = document.querySelector(`script[src="${src}"]`)
@@ -35,7 +34,7 @@ export function useGiscusScript() {
       'data-term',
       router.pathname === '/' ? 'home' : router.pathname
     )
-    script.setAttribute('data-theme', 'preferred_color_scheme')
+    script.setAttribute('data-theme', darkMode ? 'dark' : 'light')
 
     // Append the script to the document body
     container.appendChild(script)
@@ -44,5 +43,5 @@ export function useGiscusScript() {
     return () => {
       container.removeChild(script)
     }
-  }, [router.pathname]) // Empty dependency array means this effect runs once on mount
+  }, [router.pathname, darkMode]) // Empty dependency array means this effect runs once on mount
 }

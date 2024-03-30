@@ -1,3 +1,5 @@
+import { useState } from 'react'
+
 import Head from 'next/head'
 import { Router, useRouter } from 'next/router'
 import { MDXProvider } from '@mdx-js/react'
@@ -20,7 +22,7 @@ Router.events.on('hashChangeStart', onRouteChange)
 export default function App({ Component, pageProps }) {
   let router = useRouter()
 
-  console.log({ Component, pageProps })
+  const [darkMode, setDarkMode] = useState(null)
   return (
     <>
       <Head>
@@ -32,7 +34,7 @@ export default function App({ Component, pageProps }) {
         <meta name="description" content={pageProps.description} />
       </Head>
       <MDXProvider components={mdxComponents}>
-        <Layout {...pageProps}>
+        <Layout darkMode={darkMode} setDarkMode={setDarkMode} {...pageProps}>
           <HeroPattern />
           <Component {...pageProps} />
         </Layout>
