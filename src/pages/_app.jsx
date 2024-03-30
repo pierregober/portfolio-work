@@ -22,7 +22,8 @@ Router.events.on('hashChangeStart', onRouteChange)
 export default function App({ Component, pageProps }) {
   let router = useRouter()
 
-  const [darkMode, setDarkMode] = useState(null)
+  const [darkMode, setDarkMode] = useState('preferred_color_scheme')
+
   return (
     <>
       <Head>

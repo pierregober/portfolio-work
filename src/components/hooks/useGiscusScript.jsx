@@ -34,7 +34,7 @@ export function useGiscusScript({ darkMode }) {
       'data-term',
       router.pathname === '/' ? 'home' : router.pathname
     )
-    script.setAttribute('data-theme', darkMode ? 'dark' : 'light')
+    script.setAttribute('data-theme', darkMode)
 
     // Append the script to the document body
     container.appendChild(script)

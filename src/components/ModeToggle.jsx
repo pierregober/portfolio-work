@@ -34,10 +34,10 @@ export function ModeToggle({ setDarkMode }) {
     let isDarkMode = document.documentElement.classList.toggle('dark')
 
     if (isDarkMode === isSystemDarkMode) {
-      setDarkMode(true)
+      setDarkMode('dark')
       delete window.localStorage.isDarkMode
     } else {
-      setDarkMode(false)
+      setDarkMode('light')
       window.localStorage.isDarkMode = isDarkMode
     }
   }
