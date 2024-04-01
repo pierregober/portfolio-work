@@ -24,6 +24,33 @@ export default function App({ Component, pageProps }) {
 
   const [darkMode, setDarkMode] = useState('preferred_color_scheme')
 
+  console.log({ Component, pageProps })
+
+  const LDSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'BlogPosting',
+    headline: pageProps.title,
+    image: [
+      'https://example.com/photos/1x1/photo.jpg',
+      'https://example.com/photos/4x3/photo.jpg',
+      'https://example.com/photos/16x9/photo.jpg',
+    ],
+    datePublished: '20-02-05T08:00:00+08:00',
+    dateModified: '2015-02-05T09:20:00+08:00',
+    author: [
+      {
+        '@type': 'Person',
+        name: 'Jane Doe',
+        url: 'https://example.com/profile/janedoe123',
+      },
+      {
+        '@type': 'Person',
+        name: 'John Doe',
+        url: 'https://example.com/profile/johndoe123',
+      },
+    ],
+  }
+
   return (
     <>
       <Head>
@@ -33,6 +60,7 @@ export default function App({ Component, pageProps }) {
           <title>{`${pageProps.title} - CleverlyDone Tech Blog`}</title>
         )}
         <meta name="description" content={pageProps.description} />
+        <script type="application/ld+json">{JSON.stringify(LDSchema)}</script>
       </Head>
       <MDXProvider components={mdxComponents}>
         <Layout darkMode={darkMode} setDarkMode={setDarkMode} {...pageProps}>
