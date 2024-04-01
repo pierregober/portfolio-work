@@ -3,20 +3,20 @@ import { Heading } from '@/components/Heading'
 
 const guides = [
   {
+    description: 'Learn how to index your highest priority urls first',
     href: '/programmatically-process-urls-for-SEO-inspection-and-indexing',
     name: 'Programmatically Inspect & Index URLs',
-    description: 'Learn how to index your highest priority urls first',
   },
   {
+    description: 'Learn how to leverage PageSpeed API to gather Web Vitals',
     href: '/programmatically-process-urls-for-SEO-web-vitals',
     name: 'Fetch Web Vital Info',
-    description: 'Learn how to leverage PageSpeed API to gather Web Vitals',
   },
-  // {
-  //   href: "/you-don't-know-git",
-  //   name: "You Don't Know Git!",
-  //   description: 'Going over some of the must knows of git version control',
-  // },
+  {
+    description: 'Learn how to make your page load seconds faster!',
+    href: '/something',
+    name: 'Generate Critical CSS',
+  },
 ]
 
 export function Guides() {

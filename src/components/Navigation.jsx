@@ -15,19 +15,6 @@ function useInitialValue(value, condition = true) {
   return condition ? initialValue : value
 }
 
-function TopLevelNavItem({ href, children }) {
-  return (
-    <li className="md:hidden">
-      <Link
-        href={href}
-        className="block py-1 text-sm text-zinc-600 transition hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-white"
-      >
-        {children}
-      </Link>
-    </li>
-  )
-}
-
 function NavLink({ href, tag, active, isAnchorLink = false, children }) {
   return (
     <Link
@@ -188,17 +175,17 @@ export const navigation = [
     title: 'Articles',
     links: [
       { title: 'Introduction', href: '/' },
-      // {
-      //   title: "You Don't Know Git!",
-      //   href: "/you-don't-know-git",
-      // },
       {
-        title: 'SEO Web Vitals Tool',
         href: '/programmatically-process-urls-for-SEO-web-vitals',
+        title: 'SEO Web Vitals Tool',
       },
       {
-        title: 'SEO Inspection & Indexing Tool',
         href: '/programmatically-process-urls-for-SEO-inspection-and-indexing',
+        title: 'SEO Inspection & Indexing Tool',
+      },
+      {
+        href: '/generate-critical-css-aka-above-the-fold-using-gulp',
+        title: 'Generate Critical CSS',
       },
     ],
   },

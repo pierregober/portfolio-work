@@ -1,0 +1,187 @@
+{/* Vendors */}
+import Image from 'next/image'
+
+{/* Custom Components */}
+import { Libraries } from "@/components/Libraries"
+
+{/* Images */}
+import logoGulp from '@/images/logos/gulp.svg'
+import logoJS from '@/images/logos/js.svg'
+
+{/* Variables */}
+export const meta = {
+  date: "2024-03-24T08:00:00+08:00",
+}
+
+export const libraries = [
+  {
+    name: 'Gulp.js',
+    logo: logoGulp,
+  },
+  {
+    name: 'JavaScript',
+    logo: logoJS,
+  }
+]
+
+
+# Critical Generator for a Site Page Using Gulp and Penthouse
+<p>{new Date(meta.date).toLocaleDateString("en-US", { month: "long", day: "numeric", year: "numeric" })}</p>
+
+<Libraries libraries={libraries} />
+
+## Overview
+
+Critical CSS (also referred to as above the fold CSS) significantly enhances web page load time by prioritizing the loading of CSS necessary for rendering above-the-fold content. This involves grabbing the styles required for the visible portion of the webpage directly in the `<head>` to facilitate immediate rendering upon page load.
+This process involves pre-building the Critical CSS and incorporating it into the project. We utilize a gulp workflow to capture CSS from a 1300 x 900 snapshot of your chosen site. This snapshot allows us to inject the necessary CSS into the head of the site, speeding up the load time by ensuring the essential styles are loaded first.
+
+**Benefits:**
+
+- **Faster Rendering**: Quickens the rendering of above-the-fold content.
+- **Improved Performance**: Enhances overall website performance, contributing to better user engagement and SEO rankings.
+- **Reduced Resource Blocking**: Lessens the blocking of rendering by minimizing initial CSS load.
+- **Enhanced User Experience**: Offers users a quicker, more responsive experience, particularly on mobile devices with slower connections.
+
+## Instructions
+
+# Using the Gulp toolkit for automation of tasks
+
+Now there are multiple toolkits to automate work flows like webpack, gulp, grunt, etc. I have experience with gulp so I went forward with that  but to also note other benefits include:
+- Widely known — community support
+- They have plugins for logic that you can just use (think of this like npm libraries in the way you import them and use them)
+- Fully customizable code over configuration for task creation
+
+# Using Penthouse for rendering the viewport
+Now there's handful of libraries that are able to render the viewport to grab the CSS styles. I have had the best results with [Penthouse](https://www.npmjs.com/package/penthouse/v/1.1.4).
+The best results as in it have the most accurate pulling of css styles froma  page.
+
+When I used other npm libraries like [Critital](https://www.npmjs.com/package/critical),
+I had missing styles and such. I did like that Critical options to exclude, include media queries because Penthouse only does classNames unless you made a custom functionality to it which isn't bad but I like that the other library had it built in.
+
+# Creating the file
+- Create a folder named workflows
+- Create a file named `gulpfile.js`
+- Now from here you can drop the following code (Don’t worry we in go over it in a bit)
+- Determine where your above the fold css should be
+    - Depends on your structure on where you put all your individual css files.
+    - For the purpose of this demo we will keep it in folder named `critical`
+- Copy the code and replace the vlaues to whats needed.
+
+I decided to make the 
+
+*Note: you will always be generating the critical CSS files in development. With the generated files you push them into prod. It's not worth the processing time to keep on regeneraing the css and also most of the time it won't change*
+
+```javascript
+// Vendors
+const fs = require('fs').promises;
+const gulp = require('gulp');
+const gulpautoprefixer = require('gulp-autoprefixer');
+const gulpless = require('gulp-less');
+const path = require('path');
+const penthouse = require('penthouse');
+
+const cssSelectorsToExclude = [
+	// Sometimes things can get wonky or to exclude a class because the generator catches it
+];
+
+const cssSelectorsToInclude = [
+	// Sometimes things can get wonky or to load a class because of conditional reasons
+    // or SEO purposes I would define them here.
+];
+
+// Use a base page if it’s reused — like /profiles has a query param for id set the url.
+// The css should be the same for every page unless something special happens add the
+// approiate entries in the `cssSelectorsToExclude` and `cssSelectorsToInclude`
+const criticalPages = [
+  {
+    url: 'http://localhost:3000/',
+    name: ‘home’,
+  },
+  {
+    url: 'http://localhost:3000/profiles?id=123’,
+    name: ‘profiles’,
+  },
+];
+
+function getTaskPage() {
+  // Check for the name of rate page your are trying to generate CSS for
+  const argv = process.argv;
+  const pageIndex = argv.indexOf('--site') + 1;
+
+  if (pageIndex === 0 || pageIndex >= argv.length) {
+    throw new Error('Site argument not provided or incorrectly specified.');
+  }
+
+  const pageName = argv[pageIndex];
+  const page = criticalPages.find((page) => page.name === pageName);
+
+  if (!page) {
+    throw new Error(`Page with name ${pageName} not found.`);
+  }
+
+  return { name: page.name, url: page.url };
+}
+
+async function generateCriticalCSS() {
+  try {
+    const { name, url } = getTaskPage();
+
+    const src = ‘./src/css/‘ + name + '-styles.less';
+
+     // Temporary location of the css
+    const temp = './tmp';
+
+    await new Promise((resolve, reject) => {
+      gulp.src(src)
+        .pipe(gulpless())
+        .pipe(gulpautoprefixer())
+        .pipe(gulp.dest(temp))
+        .on('end', resolve)
+        .on('error', reject);
+    });
+
+    const criticalCSS = await penthouse({
+      url,
+      css: './tmp/' + name + '-styles.css',
+      timeout: 60000,
+      forceExclude: cssSelectorsToExclude,
+      forceInclude: cssSelectorsToInclude,
+      propertiesToRemove: ['(.*)transform(.*)', 'cursor'],
+    });
+
+    await fs.writeFile(
+      path.resolve(‘./src/css/’ + name + '-critical-styles.less'),
+      criticalCSS,
+    );
+
+    console.log(`🚀criticalCSS generated for ${name}! `);
+  } catch (err) {
+    console.error(err);
+  }
+}
+
+gulp.task('build', gulp.series(generateCriticalCSS));
+
+```
+
+# To generate Critical CSS:
+
+1. After copying the above code
+2. Open your terminal in to the location of your gulpfile.
+3. Run the command: `yarn gulp build --site [target_page]`
+   - Replace `[target_page]` with your page's name to generate its critical CSS.
+   - Refer to the `criticalPages` array for supported sites by this workflow.
+4. The process will generate the critical CSS for the specified page.
+
+## Example command
+
+To generate critical CSS for the home page:
+
+```bash
+yarn gulp build --site home
+```
+
+- **Checking CSS Utilization**:
+  - Open 'Coverage' in Chrome DevTools.
+  - Start the recorder.
+  - Inspect the 'critical-styles' file for any Unused Bytes %.
