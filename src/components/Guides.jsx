@@ -14,7 +14,7 @@ const guides = [
   },
   {
     description: 'Learn how to make your page load seconds faster!',
-    href: '/something',
+    href: '/generate-critical-css-aka-above-the-fold-using-gulp',
     name: 'Generate Critical CSS',
   },
 ]
