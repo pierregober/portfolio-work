@@ -10,7 +10,7 @@ import logoJS from '@/images/logos/js.svg'
 
 {/* Variables */}
 export const meta = {
-  date: "2024-03-24T08:00:00+08:00",
+  date: "2024-03-01T08:00:00+08:00",
 }
 
 export const libraries = [
@@ -31,7 +31,6 @@ export const libraries = [
 <Libraries libraries={libraries} />
 
 ## Overview
-
 Critical CSS (also referred to as above the fold CSS) significantly enhances web page load time by prioritizing the loading of CSS necessary for rendering above-the-fold content. This involves grabbing the styles required for the visible portion of the webpage directly in the `<head>` to facilitate immediate rendering upon page load.
 This process involves pre-building the Critical CSS and incorporating it into the project. We utilize a gulp workflow to capture CSS from a 1300 x 900 snapshot of your chosen site. This snapshot allows us to inject the necessary CSS into the head of the site, speeding up the load time by ensuring the essential styles are loaded first.
 
@@ -65,9 +64,7 @@ I had missing styles and such. I did like that Critical options to exclude, incl
 - Determine where your above the fold css should be
     - Depends on your structure on where you put all your individual css files.
     - For the purpose of this demo we will keep it in folder named `critical`
-- Copy the code and replace the vlaues to whats needed.
-
-I decided to make the 
+- Copy the code and replace the values to whats needed.
 
 *Note: you will always be generating the critical CSS files in development. With the generated files you push them into prod. It's not worth the processing time to keep on regeneraing the css and also most of the time it won't change*
 
@@ -177,9 +174,8 @@ gulp.task('build', gulp.series(generateCriticalCSS));
 
 To generate critical CSS for the home page:
 
-```bash
-yarn gulp build --site home
-```
+`yarn gulp build --site home`
+
 
 - **Checking CSS Utilization**:
   - Open 'Coverage' in Chrome DevTools.
