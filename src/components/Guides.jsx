@@ -17,6 +17,11 @@ const guides = [
     href: '/generate-critical-css-aka-above-the-fold-using-gulp',
     name: 'Generate Critical CSS',
   },
+  {
+    description: 'Vet Tec Success Story',
+    href: '/vet-tec-success-story',
+    name: "VA's Pilot Program to Help Veterans Break Into Tech",
+  },
 ]
 
 export function Guides() {

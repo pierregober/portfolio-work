@@ -187,6 +187,10 @@ export const navigation = [
         href: '/generate-critical-css-aka-above-the-fold-using-gulp',
         title: 'Generate Critical CSS',
       },
+      {
+        href: '/vet-tec-success-story',
+        title: 'Vet Tec Success Story',
+      },
     ],
   },
 ]
